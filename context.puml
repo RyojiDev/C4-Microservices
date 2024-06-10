@@ -1,0 +1,18 @@
+@startuml
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title "Digital Wallet Full Cycle"
+Person(client, "Client", "Digital Wallet User")
+System(Wallet, "Digital Wallet System", "FC Digital Wallet")
+
+System_Ext(secret_manager, "AWS Secrets Manager", "Credential Manager") 
+System_Ext(apm, "APM", "Application Performance Monitoring")
+System_Ext(collect, "Otel", "OpenTelemetry Collector", "Tracing Collector")
+System_Ext(payment_gateway, "Payment Gateway", "Payment Processor")
+
+Rel(client, Wallet, "Uses", "HTTP/HTTPS")
+Rel(Wallet, secret_manager, "Uses", "HTTP/HTTPS")
+Rel(Wallet, apm, "Uses", "HTTP/HTTPS")
+Rel(Wallet, collect, "Uses", "HTTP/HTTPS")
+Rel(Wallet, payment_gateway, "Uses", "HTTP/HTTPS")
+@enduml
